@@ -5,6 +5,7 @@ doYouLike Kinoko s = s ++ " (A)"
 doYouLike Takenoko s = s ++ " (T)"
 
 data WeekDay = Sun | Mon | Tue | Wed | Thu | Fri | Sut
+  deriving Show
 
 isDayOf :: WeekDay -> String
 isDayOf Sun = "play"
