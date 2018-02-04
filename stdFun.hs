@@ -22,3 +22,9 @@ partitionRaw _ [] = ([], [])
 partitionRaw f (x : xs) =
   let (l, r) = partitionRaw f xs
   in bool (l, x : r) (x : l, r) (f x)
+
+takeRaw :: Integer -> [a] -> [a]
+takeRaw _ [] = []
+takeRaw n xss@(x : xs)
+  | n == 0 = []
+  | otherwise = x : takeRaw (n - 1) xs
