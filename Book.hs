@@ -39,3 +39,13 @@ get tg (Node _ cs) = case find ((==tg) . rootLabel) cs of
 
 booklist :: String -> Maybe [Book]
 booklist = maybe Nothing booklistNml . nml
+
+fromBooklist :: [Book] -> String
+fromBooklist = undefined
+
+fromBook b = Node "book" [
+  Node "title" [Node (title b) []],
+  Node "author" [Node (author b) []] ]
+
+fromBooklistNml :: [Book] -> Nml
+fromBooklistNml = Node "books" . map fromBook
