@@ -1,4 +1,4 @@
-module Book (Book(..), booklist) where
+module Book (Book(..), booklist, fromBooklist) where
 
 import Data.Maybe (mapMaybe)
 import Data.List (find)
@@ -8,7 +8,7 @@ import Nml
 data Book = Book {
   title :: String,
   author :: String
-  } deriving Show
+  } deriving (Show, Read)
 
 books1 :: String
 books1 = "<books>" ++
@@ -41,7 +41,7 @@ booklist :: String -> Maybe [Book]
 booklist = maybe Nothing booklistNml . nml
 
 fromBooklist :: [Book] -> String
-fromBooklist = undefined
+fromBooklist = fromNml . fromBooklistNml
 
 fromBook b = Node "book" [
   Node "title" [Node (title b) []],

@@ -1,4 +1,4 @@
-module Nml (Nml, nml) where
+module Nml (Nml, nml, fromNml) where
 
 import Data.Char (isSpace)
 import Data.Tree (Tree(..))
@@ -36,3 +36,15 @@ parseL ts = case parse ts of
 
 nml :: String -> Maybe Nml
 nml = fmap fst . parse . unfoldr token
+
+fromNml :: Nml -> String
+fromNml = concatMap toString . toTokens
+
+toString :: Token -> String
+toString (Open o) = "<" ++ o ++ ">"
+toString (Close c) = "</" ++ c ++ ">"
+toString (Text tx) = tx
+
+toTokens :: Nml -> [Token]
+toTokens (Node tx []) = [Text tx]
+toTokens (Node tg ns) = Open tg : concatMap toTokens ns ++ [Close tg]
