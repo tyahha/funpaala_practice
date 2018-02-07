@@ -33,3 +33,12 @@ ifm b x y = if toBool b then x else y
 
 trues :: BoolLike b => [b] -> [b]
 trues = filter toBool
+
+instance BoolLike (Maybe a) where
+  toBool Nothing = False
+  toBool (Just _) = True
+
+instance BoolLike a => BoolLike [a] where
+  toBool [] = False
+  toBool [x] = toBool x
+  toBool (_ : _) = True
